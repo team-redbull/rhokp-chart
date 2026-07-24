@@ -60,15 +60,6 @@ securityContext:
   capabilities:
     drop: ["ALL"]
 
-# Not required by the official install steps; enable only if you need to persist
-# portal state across pod restarts.
-persistence:
-  enabled: false
-  storageClassName: "gp3-csi"
-  accessModes: ["ReadWriteOnce"]
-  size: 20Gi
-  mountPath: /data
-
 serviceAccount:
   create: true
   name: ""

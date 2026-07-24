@@ -1,14 +1,9 @@
-{{- define "rhokp.name" -}}
+{{- define "rhokp.fullname" -}}
 {{- .Chart.Name -}}
 {{- end -}}
 
-{{- define "rhokp.fullname" -}}
-{{- .Release.Name -}}
-{{- end -}}
-
 {{- define "rhokp.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "rhokp.name" . }}
-app.kubernetes.io/instance: {{ .Release.Name }}
+app.kubernetes.io/name: {{ include "rhokp.fullname" . }}
 {{- end -}}
 
 {{- define "rhokp.image" -}}
@@ -22,4 +17,3 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 {{- .Values.serviceAccount.name | default "default" -}}
 {{- end -}}
 {{- end -}}
-

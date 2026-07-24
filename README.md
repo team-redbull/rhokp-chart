@@ -64,7 +64,14 @@ argocd app sync rhokp
 | `accessKey.secretValue`          | `""`                                              | RHOKP access key; chart creates the Secret when set                                          |
 | `imagePullSecret.dockerPassword` | `""`                                              | `registry.redhat.io` password; chart creates the pull Secret when set                        |
 | `route.enabled`                  | `true`                                            | OpenShift Route; disable for an internal-only (ClusterIP-only) deployment                    |
-| `persistence.enabled`            | `false`                                           | Not required by the official install steps; enable if you need state to survive pod restarts |
 | `resources`                      | 500m/1Gi requests, 2/4Gi limits                   | Not published by Red Hat — tune to your traffic                                              |
+
+## Sync ordering
+
+Resources carry `argocd.argoproj.io/sync-wave` annotations so one `argocd app
+sync` brings the app up in the right order: Secrets/ServiceAccount (wave 0) →
+Service/Deployment (wave 1) → Route (wave 2). This is still a single sync
+operation — waves are ordered phases within it, not separate syncs — ArgoCD
+just waits for each wave to be applied before starting the next.
 
 See `values.yaml` for the full list.

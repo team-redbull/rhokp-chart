@@ -4,6 +4,8 @@ metadata:
   name: {{ include "rhokp.fullname" . }}
   labels:
     {{- include "rhokp.selectorLabels" . | nindent 4 }}
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
@@ -53,17 +55,6 @@ spec:
             failureThreshold: {{ .Values.probes.failureThreshold }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-          {{- if .Values.persistence.enabled }}
-          volumeMounts:
-            - name: data
-              mountPath: {{ .Values.persistence.mountPath }}
-          {{- end }}
-      {{- if .Values.persistence.enabled }}
-      volumes:
-        - name: data
-          persistentVolumeClaim:
-            claimName: {{ include "rhokp.fullname" . }}-data
-      {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

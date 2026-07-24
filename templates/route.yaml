@@ -5,6 +5,8 @@ metadata:
   name: {{ include "rhokp.fullname" . }}
   labels:
     {{- include "rhokp.selectorLabels" . | nindent 4 }}
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
 spec:
   {{- with .Values.route.host }}
   host: {{ . }}
