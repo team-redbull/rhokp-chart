@@ -11,8 +11,8 @@ image:
 imagePullSecret:
   name: redhat-registry-secret
   dockerServer: registry.redhat.io
-  dockerUsername: ""
-  dockerPassword: ""
+  dockerUsername: "tomer123"
+  dockerPassword: "tomer123"
 
 # RHOKP authenticates via an access key generated from the Red Hat Offline
 # Knowledge Portal Access Key Generator. The chart creates this secret for
@@ -20,8 +20,8 @@ imagePullSecret:
 accessKey:
   secretName: rhokp-access-key
   secretKey: access-key
-  secretValue: ""
-  
+  secretValue: "tomer123"
+
 service:
   type: ClusterIP
   port: 8080
